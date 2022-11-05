@@ -1,5 +1,4 @@
 package com.helidevine.learningspringboot.model;
-
 public class User {
     // user id
     private final UUID userUid;
@@ -59,5 +58,4 @@ public class User {
         MALE,
         PREFER NOT TO SAY,
     }
-
 }
