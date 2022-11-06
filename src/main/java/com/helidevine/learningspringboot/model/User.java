@@ -3,13 +3,13 @@ package com.helidevine.learningspringboot.model;
 import java.util.UUID;
 
 public class User {
-    // user id
-    private final UUID userUid;
     private final String firstName;
     private final String lastName;
     private final Gender gender;
     private final int age;
     private final String email;
+    // user id
+    private UUID userUid;
 
     public User(UUID userUid, String firstName, String lastName, Gender gender, int age, String email) {
         this.userUid = userUid;
@@ -22,6 +22,10 @@ public class User {
 
     public UUID getUserUid() {
         return userUid;
+    }
+
+    public void setUserUid(UUID userUid) {
+        this.userUid = userUid;
     }
 
     public String getFirstName() {
@@ -56,7 +60,7 @@ public class User {
                 '}';
     }
 
-    public enum Gender{
+    public enum Gender {
         FEMALE,
         MALE,
         PREFER_NOT_TO_SAY
