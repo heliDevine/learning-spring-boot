@@ -1,20 +1,21 @@
 package com.helidevine.learningspringboot.dao;
 
 import com.helidevine.learningspringboot.model.User;
+import org.springframework.stereotype.Repository;
 
 import java.util.*;
 
+@Repository
 public class FakeDataDao implements UserDao {
+    private Map<UUID, User> database;
 
-    private static Map<UUID, User> database;
-
-    static {
+    public FakeDataDao() {
         database = new HashMap<>();
         UUID joeUserUid = UUID.randomUUID();
 
         database.put(joeUserUid, new User
-                (joeUserUid, "Joe", "Jones",
-                        User.Gender.FEMALE, 22, "joe.jones@gmail.com"));
+                (joeUserUid, "Jo", "Jones",
+                        User.Gender.FEMALE, 22, "jo.jones@gmail.com"));
     }
 
     @Override
@@ -23,8 +24,8 @@ public class FakeDataDao implements UserDao {
     }
 
     @Override
-    public User selectUserByUserUid(UUID userUid) {
-        return database.get(userUid);
+    public Optional<User> selectUserByUserUid(UUID userUid) {
+        return Optional.ofNullable(database.get(userUid));
     }
 
     @Override
