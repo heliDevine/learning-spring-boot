@@ -1,4 +1,7 @@
 package com.helidevine.learningspringboot.model;
+
+import java.util.UUID;
+
 public class User {
     // user id
     private final UUID userUid;
@@ -53,9 +56,11 @@ public class User {
                 '}';
     }
 
-    enum Gender{
+    public enum Gender{
         FEMALE,
         MALE,
-        PREFER NOT TO SAY,
+        PREFER_NOT_TO_SAY
     }
+
+    // adding just a comment to check git
 }
