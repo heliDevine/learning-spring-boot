@@ -1,17 +1,26 @@
 package com.helidevine.learningspringboot.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+import java.time.LocalDate;
 import java.util.UUID;
 
 public class User {
+    private UUID userUid;
     private String firstName;
     private String lastName;
     private Gender gender;
     private int age;
     private String email;
     // user id
-    private UUID userUid;
 
-    public User(UUID userUid, String firstName, String lastName, Gender gender, int age, String email) {
+    public User(@JsonProperty("userUid") UUID userUid,
+                @JsonProperty("firstName") String firstName,
+                @JsonProperty("lastName") String lastName,
+                @JsonProperty("gender") Gender gender,
+                @JsonProperty("age") int age,
+                @JsonProperty("email") String email) {
         this.userUid = userUid;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -20,16 +29,22 @@ public class User {
         this.email = email;
     }
 
-    public User() {
+    public static User newUser(UUID userUid, User user) {
+        return new User(userUid, user.getFirstName(), user.getLastName(), user.gender, user.getAge(), user.getEmail());
     }
 
+    @JsonProperty("id")
     public UUID getUserUid() {
         return userUid;
     }
-
-    public void setUserUid(UUID userUid) {
-        this.userUid = userUid;
-    }
+//
+//    public void setUserUid(UUID userUid) {
+//        this.userUid = userUid;
+//    }
+//
+//    public void setUserUid(UUID userUid) {
+//        this.userUid = userUid;
+//    }
 
     public String getFirstName() {
         return firstName;
@@ -51,6 +66,14 @@ public class User {
         return email;
     }
 
+    public String getFullName() {
+        return firstName + " " + lastName;
+    }
+
+    public int getYearOfBirth() {
+        return LocalDate.now().minusYears(age).getYear();
+    }
+
     @Override
     public String toString() {
         return "User{" +
@@ -66,8 +89,5 @@ public class User {
     public enum Gender {
         FEMALE,
         MALE,
-        PREFER_NOT_TO_SAY
     }
-
-    // adding just a comment to check git
 }

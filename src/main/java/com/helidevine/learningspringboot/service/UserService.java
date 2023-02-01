@@ -20,7 +20,7 @@ public class UserService {
         this.userDao = userDao;
     }
 
-    public List<User> getAllUsers() {
+    public List<User> getAllUsers(Optional<String> gender) {
         return userDao.selectAllUsers();
     }
 
@@ -46,7 +46,6 @@ public class UserService {
 
     public int insertUser(User user) {
         UUID userUid = UUID.randomUUID();
-        user.setUserUid(userUid);
-        return userDao.insertUser(UUID.randomUUID(), user);
+        return userDao.insertUser(userUid, User.newUser(userUid, user));
     }
 }
