@@ -1,17 +1,31 @@
 package com.helidevine.learningspringboot.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import javax.validation.constraints.Email;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 import java.util.UUID;
 
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class User {
     private UUID userUid;
+    @NotNull
     private String firstName;
+    @NotNull
     private String lastName;
+    @NotNull
     private Gender gender;
+    @NotNull
+    @Max(value = 112)
+    @Min(value = 0)
     private int age;
+    @NotNull
+    @Email
     private String email;
     // user id
 
@@ -33,7 +47,7 @@ public class User {
         return new User(userUid, user.getFirstName(), user.getLastName(), user.gender, user.getAge(), user.getEmail());
     }
 
-    @JsonProperty("id")
+    //    @JsonProperty("id")
     public UUID getUserUid() {
         return userUid;
     }

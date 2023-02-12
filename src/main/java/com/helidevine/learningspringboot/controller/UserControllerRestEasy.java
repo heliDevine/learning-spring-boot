@@ -4,7 +4,9 @@ import com.helidevine.learningspringboot.model.User;
 import com.helidevine.learningspringboot.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.validation.annotation.Validated;
 
+import javax.validation.Valid;
 import javax.ws.rs.*;
 import javax.ws.rs.core.Response;
 import java.util.List;
@@ -13,6 +15,7 @@ import java.util.UUID;
 
 import static javax.ws.rs.core.MediaType.APPLICATION_JSON;
 
+@Validated
 @Component
 @Path("/api/v1/users")
 public class UserControllerRestEasy {
@@ -47,7 +50,7 @@ public class UserControllerRestEasy {
     @POST
     @Produces(APPLICATION_JSON)
     @Consumes(APPLICATION_JSON)
-    public Response insertNewUser(User user) {
+    public Response insertNewUser(@Valid User user) {
         int result = userService.insertUser(user);
 
         return getIntegerResponseEntity(result);

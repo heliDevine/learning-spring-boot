@@ -7,8 +7,11 @@ import org.springframework.stereotype.Service;
 
 
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.UUID;
+
+import static java.util.Objects.requireNonNull;
 
 @Service
 public class UserService {
@@ -45,7 +48,16 @@ public class UserService {
     }
 
     public int insertUser(User user) {
-        UUID userUid = UUID.randomUUID();
+        UUID userUid = user.getUserUid() == null ? UUID.randomUUID() : user.getUserUid();
         return userDao.insertUser(userUid, User.newUser(userUid, user));
+    }
+
+    private void validateUser(User user) {
+        requireNonNull(user.getFirstName(), "first name required");
+        requireNonNull(user.getLastName(), "last name required");
+        requireNonNull(user.getAge(), "age required");
+        //validate email
+        requireNonNull(user.getEmail(), "email required");
+        requireNonNull(user.getGender(), "gender required");
     }
 }
