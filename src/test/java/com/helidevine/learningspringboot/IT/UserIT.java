@@ -94,7 +94,6 @@ public class UserIT {
         assertThat(user).isEqualToComparingFieldByField(updatedUser);
 
     }
-//ERROR IN THIS TEST
 
     @Test
     public void fetchUsersByGender() throws Exception {
@@ -104,28 +103,30 @@ public class UserIT {
 
         User user = new User
                 (userUid, "Jo", "Jones",
-                        User.Gender.MALE, 22, "jo.jones@gmail.com");
-        //WHEN
+                        User.Gender.FEMALE, 22, "jo.jones@gmail.com");
+//    WHEN
+
         userResourceV1.insertNewUser(user);
-        //THEN
-//
-//        List<User> females = userResourceV1.fetchUsers(User.Gender.FEMALE.name());
-//
-//        assertThat(females).extracting("userUid").doesNotContain(user.getUserUid());
-//        assertThat(females).extracting("firstName").doesNotContain(user.getFirstName());
-//        assertThat(females).extracting("lastName").doesNotContain(user.getLastName());
-//        assertThat(females).extracting("gender").doesNotContain(user.getGender());
-//        assertThat(females).extracting("age").doesNotContain(user.getAge());
-//        assertThat(females).extracting("email").doesNotContain(user.getEmail());
+//    THEN
+
+        List<User> females = userResourceV1.fetchUsers(User.Gender.FEMALE.name());
+
+
+        assertThat(females).extracting("userUid").contains(user.getUserUid());
+        assertThat(females).extracting("firstName").contains(user.getFirstName());
+        assertThat(females).extracting("lastName").contains(user.getLastName());
+        assertThat(females).extracting("gender").contains(user.getGender());
+        assertThat(females).extracting("age").contains(user.getAge());
+        assertThat(females).extracting("email").contains(user.getEmail());
 
         List<User> males = userResourceV1.fetchUsers(User.Gender.MALE.name());
 
-        assertThat(males).extracting("userUid").contains(user.getUserUid());
-        assertThat(males).extracting("firstName").contains(user.getFirstName());
-        assertThat(males).extracting("lastName").contains(user.getLastName());
-        assertThat(males).extracting("gender").contains(user.getGender());
-        assertThat(males).extracting("age").contains(user.getAge());
-        assertThat(males).extracting("email").contains(user.getEmail());
+        assertThat(males).extracting("userUid").doesNotContain(user.getUserUid());
+        assertThat(males).extracting("firstName").doesNotContain(user.getFirstName());
+        assertThat(males).extracting("lastName").doesNotContain(user.getLastName());
+        assertThat(males).extracting("gender").doesNotContain(user.getGender());
+        assertThat(males).extracting("age").doesNotContain(user.getAge());
+        assertThat(males).extracting("email").doesNotContain(user.getEmail());
 
     }
 }
